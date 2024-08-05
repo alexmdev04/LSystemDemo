@@ -1,0 +1,32 @@
+PRESS F5 TO RESET THE MAZE
+PRESS F3 TO ENABLE DEBUG MODE, PRESS ` OR ~ TO ENABLE CONSOLE
+WHILE IN DEBUG MODE
+	PRESS F6 FOR NOCLIP
+	PRESS F9 FOR SPEEDOMETER
+
+noclip = player can move through all objects
++ *float* = sets the speed of the noclip
+
+reset/restart = creates a new maze and starts the game again
+
+// THE FPS COUNTER IS BROKEN AND ALWAYS SHOWS 50
+fps = displays the fps counter always
++ *integer* = sets the target fps
+
+vsync = toggle vsync
+
+fov + *integer* = sets the camera field of view, (1-179)
+
+renderdistance/rd + *integer* = sets the render distance to the given number, (number is unclamped, negatives will break it)
+
+iamspeed = toggles the forward velocity speedometer
+
+collectpage = acts as if you just picked up a page
+
+attack = acts as if you were just hit by the enemy
+
+ping = pong
+
+exit/quit = closes the game
+
+

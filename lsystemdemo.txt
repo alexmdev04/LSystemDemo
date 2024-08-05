@@ -1,0 +1,6 @@
+lsystemdemo
+
+procedurally generated forest?
+floor is procedural plane, vertexes pulled from seeded noise texture
+no pre allocation of chunks
+if chunk is not found, generate it
