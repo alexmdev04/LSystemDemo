@@ -57,6 +57,7 @@ public class Game : MonoBehaviour
     }
     void Update()
     {
+        
     }
     public void Reset()
     {
@@ -72,16 +73,6 @@ public class Game : MonoBehaviour
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
         InputHandler.instance.SetActive(!state);
-    }
-    public void CollectPage()
-    {
-        papersCollected++;
-        uiMessage.instance.New("Papers Collected: " + papersCollected, "Game");
-        if (papersCollected >= paperCount) { WorldGen.instance.OpenExit(); }
-    }
-    public void GetPaperCount()
-    {
-        paperCount = System.Math.Max(WorldGen.instance.worldSizeX, WorldGen.instance.worldSizeZ) - 3;
     }
     public void AttackPlayer()
     {

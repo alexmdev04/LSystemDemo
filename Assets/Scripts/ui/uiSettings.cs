@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,19 +7,16 @@ public class uiSettings : MonoBehaviour
 {
     [SerializeField] TMP_InputField 
         sensitivityInputField,
-        renderDistanceInputField,
-        mazeSizeXInputField,
-        mazeSizeZInputField;
+        renderDistanceInputField;
     [SerializeField] Button 
         buttonToFocus;
-    public GameObject 
-        resetMessage;
     bool skipOnEnable = false;
 
-    void Awake() 
+    private void Update()
     {
-        mazeSizeXInputField.onValueChanged.AddListener(delegate { mazeSizeZInputField.text = mazeSizeXInputField.text; });
+        if (Input.GetKeyDown(KeyCode.Escape)) { Resume(); }
     }
+
     void OnEnable()
     {
         if (!skipOnEnable) { skipOnEnable = true; return; }
@@ -27,8 +25,6 @@ public class uiSettings : MonoBehaviour
         buttonToFocus.Select();
         sensitivityInputField.text = Player.instance.lookSensitivity.y.ToString();
         renderDistanceInputField.text = ChunkRenderer.instance.renderDistance.ToString();
-        mazeSizeXInputField.text = WorldGen.instance.worldSizeX.ToString();
-        //mazeSizeZInputField.text = WorldGen.instance.worldSizeZ.ToString();
     }
     void OnDisable()
     {
@@ -44,7 +40,6 @@ public class uiSettings : MonoBehaviour
     }
     public void Reset()
     {
-        resetMessage.SetActive(false);
         uiDebugConsole.instance.InternalCommandCall("reset");
         Resume();
     }
@@ -62,23 +57,6 @@ public class uiSettings : MonoBehaviour
         {
             renderDistance = System.Math.Clamp(renderDistance, 1, 25);
             ChunkRenderer.instance.SetRenderDistance(renderDistance);
-        }
-    }
-    public void SetMazeSizeX()
-    {
-        if (int.TryParse(mazeSizeXInputField.text, out int mazeSizeX))
-        {
-            WorldGen.instance.worldSizeXNew = mazeSizeX;
-            resetMessage.SetActive(true);
-        }
-    }
-    public void SetMazeSizeZ()
-    {
-        if (int.TryParse(mazeSizeZInputField.text, out int mazeSizeZ))
-        {
-            mazeSizeZ = System.Math.Clamp(mazeSizeZ, 2, 10000);
-            WorldGen.instance.worldSizeZNew = mazeSizeZ;
-            resetMessage.SetActive(true);
         }
     }
 }

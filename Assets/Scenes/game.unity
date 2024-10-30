@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.02
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1132516428}
   m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -199,7 +199,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989983975}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 11deff72a7d875f4482831a2dcbcf170, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -703,7 +703,7 @@ MonoBehaviour:
   forceToApplyFriction: 0.1
   flatvelMin: 0.1
   walkSpeed: 5
-  sprintSpeed: 11
+  sprintSpeed: 10
   cameraHeight: 0.825
   movementAcceleration: 0.025
   movementDecceleration: 0.01

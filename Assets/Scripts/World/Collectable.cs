@@ -21,7 +21,7 @@ public class Collectable : MonoBehaviour
         if (collision.transform.parent.TryGetComponent(out Player player)) 
         { 
             uiDebugConsole.instance.InternalCommandCall("collectpage");
-            loadedChunk.chunk.hasPaper = false;
+            //loadedChunk.chunk.hasPaper = false;
             gameObject.SetActive(false);
         }
     }

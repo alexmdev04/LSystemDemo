@@ -456,6 +456,15 @@ public static class GridIndexExt
         if (value.Length == 0) { return new StringBuilder(); }
         return new StringBuilder(str_leftBracket).Append(value[0].ToString()).Append(str_comma).Append(value[1].ToString()).Append(str_rightBracket);
     }
+
+    public static bool IsOutOfBounds(this int[] value)
+    {
+        return value[0] > WorldGen.instance.worldSizeX - 1 | value[0] < 0 | value[1] > WorldGen.instance.worldSizeZ - 1 | value[1] < 0;
+    }
+    public static bool IsOutOfBounds(int x, int z)
+    {
+        return x > WorldGen.instance.worldSizeX - 1 | x < 0 | z > WorldGen.instance.worldSizeZ - 1 | z < 0;
+    }
     public static bool EqualTo1(this int[] x, int[] y)
     {
         if (x.Length != y.Length)

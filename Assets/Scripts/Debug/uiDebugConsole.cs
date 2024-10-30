@@ -49,20 +49,34 @@ public class uiDebugConsole : MonoBehaviour
         QualitySettings.vSyncCount = vSyncEnabled ? 0 : 1;
         uiMessage.instance.New("vSync " + (vSyncEnabled ? "disabled" : "enabled"));
     }
-    void fov() 
-    {   
+    void fov()
+    {
         if (consoleInput.Length > 1)
         {
             if (int.TryParse(consoleInput[1], out int value))
             {
-                CameraHandler.mainCamera.fieldOfView = 
+                CameraHandler.mainCamera.fieldOfView =
                     Extensions.FOVHorizontalToVertical(value, CameraHandler.mainCamera);
+            }
+        }
+        else
+        {
+            InvalidInput();
+        }
+    }
+    void quit() { Application.Quit(); }
+    void debugUpdateRate() 
+    {   
+        if (consoleInput.Length > 1)
+        {
+            if (float.TryParse(consoleInput[1], out float value))
+            {
+                uiDebug.instance.statsRepeatRate = value;
+                uiDebug.instance.RefreshRepeating();
             }
         }
         else { InvalidInput(); }
     }
-    void quit() { Application.Quit(); }
-    void debugUpdateRate() {  }
     void interact()
     {
         if (consoleInput.Length > 1)
@@ -119,7 +133,6 @@ public class uiDebugConsole : MonoBehaviour
             { "iamspeed", ToggleSpeedometer },
             { "renderdistance", renderdistance }, { "rd", renderdistance },
             { "reset", WorldGen.instance.Reset }, { "restart", WorldGen.instance.Reset },
-            { "collectpage", Game.instance.CollectPage },
             { "attack", Game.instance.AttackPlayer }
         };
         commandKeyList = commands.Keys.ToList();

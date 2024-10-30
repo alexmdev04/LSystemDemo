@@ -30,7 +30,7 @@ public class uiDebug : MonoBehaviour
     [Tooltip("Lower is faster")] public float statsRepeatRate = 0.02f;
     bool noclipEnabled, godEnabled;
     LensDistortion lensDistortion;
-
+    int fps;
     public const string
         // player
         str_playerTitle = "<u>Player/Game;</u>",
@@ -96,7 +96,7 @@ public class uiDebug : MonoBehaviour
     {
         uiDebugConsole.instance.Start();
         StartRepeating();
-        InvokeRepeating(nameof(GetFPS), 0f, statsRepeatRate);
+        InvokeRepeating(nameof(GetStatsAlways), 0f, statsRepeatRate);
     }
     void StartRepeating()
     {
@@ -114,7 +114,8 @@ public class uiDebug : MonoBehaviour
     {
         CancelInvoke();
         StartRepeating();
-        InvokeRepeating(nameof(GetFPS), 0f, statsRepeatRate);
+        CancelInvoke(nameof(GetStatsAlways));
+        InvokeRepeating(nameof(GetStatsAlways), 0f, statsRepeatRate);
     }
     void Update()
     {
@@ -127,10 +128,11 @@ public class uiDebug : MonoBehaviour
         }
         uiDebugGroup.SetActive(debugMode);
         if (debugMode & !uiDebugConsole.instance.gameObject.activeSelf) { Controls(); }
-        /* toggles debug console -> */ if (Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.Tilde)) { uiDebugConsole.instance.gameObject.SetActive(!uiDebugConsole.instance.gameObject.activeSelf); }
+        /* toggles debug console -> */ if ((Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.Tilde)) && debugMode) { uiDebugConsole.instance.gameObject.SetActive(!uiDebugConsole.instance.gameObject.activeSelf); }
         Noclip();
         //Player.instance.moveActive = !noclipEnabled;
         TorchSwayDebug();
+        GetFPS();
     }
     void GetRes() // gets the current resolution, refresh rate and aspect ratio
     {
@@ -141,27 +143,25 @@ public class uiDebug : MonoBehaviour
     }
     void GetFPS() // fps counter
     {
-        uiFPSText.text = ((int)(1 / Time.unscaledDeltaTime)).ToString();
+        fps = (int)(1.0f / Time.unscaledDeltaTime);
     }
     void GetStats() // contructs all stats for the debug overlay, uses stringbuilder & append to slightly improve performance
     {
         if (!debugMode)
         {
             uiStatsPlayer.text = string.Empty;
-            //uiStatsLevel.text = string.Empty;
-            //uiStatsStealth.text = string.Empty;
             uiStatsMiscellaneous.text = string.Empty;
             return;
         }
-        uiStatsPlayer.text = Player.instance.debugGetStats()
-            .Append("\nmazeGenTime = ")
-            .Append((WorldGen.instance.allocationTime + WorldGen.instance.algorithmTime).TotalMilliseconds)
-            .Append("ms (Alloc: ").Append(WorldGen.instance.allocationTime.TotalMilliseconds)
-            .Append("ms, Algo: ").Append(WorldGen.instance.algorithmTime.TotalMilliseconds).Append("ms)").ToString();
+        uiStatsPlayer.text = Player.instance.debugGetStats().ToString();
         uiStatsMiscellaneous.text = new StringBuilder("<u>Miscellaneous;</u>")
             .Append("\nuiFadeAlpha = ").Append(ui.instance.uiFadeAlpha).ToString();
-            //.Append("\nplayerVisible = ").Append(StealthHandler.instance.playerVisible).ToString();
         uiStatsCamera.text = CameraHandler.instance.debugGetStats().ToString();
+    }
+
+    void GetStatsAlways()
+    {
+        uiFPSText.text = fps.ToString();
     }
     void GetDebugNotes() // scans all loaded scenes and their root game objects for uiDebugNote components and combines them all
     {

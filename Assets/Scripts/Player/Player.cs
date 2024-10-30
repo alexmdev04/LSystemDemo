@@ -285,16 +285,13 @@ public class Player : MonoBehaviour
             .Append(uiDebug.str_targetFPS).Append(Application.targetFrameRate).Append(uiDebug.str_vSync).Append(QualitySettings.vSyncCount)
             //.Append(uiDebug.str_mouseRotation).Append(mouseDelta.ToStringBuilder()).Append(uiDebug.str_multiply).Append(mouseDeltaMultiplier.ToStringBuilder())
             .Append(uiDebug.str_lookSensitivity).Append(lookSensitivity.ToStringBuilder())
+            .Append("\nplayerGridPosition = ").Append(gridIndex.ToStringBuilder().ToString())
             .Append("\nplayerHeightCM = ").Append(playerHeightCM.ToString())
             .Append("\ncapsuleScale = ").Append(playerCapsule.transform.localScale.ToStringBuilder())
             .Append("\nmovementDirection = ").Append(movementDirection.ToStringBuilder())
             .Append("\nwalkingAnimVector = ").Append(walkingAnimVector.ToStringBuilder())
-            //.Append("\nvelocityFake = ").Append(fakeVelocity.ToStringBuilder())
             .Append("\ngrounded = ").Append(grounded.ToString())
-            //.Append("\nforce = ").Append(debugForce.Round(4).ToStringBuilder()).Append(", magnitude = ").Append(MathF.Round(debugForce.magnitude, 4))
-            //.Append("\nflatvel = ").Append(debugFlatvel.Round(4).ToStringBuilder()).Append(", magnitude = ").Append(MathF.Round(debugFlatvel.magnitude, 4))
             .Append("\nvelocity = ").Append(rb.velocity.Round(4).ToStringBuilder())
-            .Append("\nspeed = ").Append(playerSpeed.ToString()).Append("m/s\n");
-            //.Append("\n playerDirection = ").Append(facingDirection).Append(" = ").Append(facingDirection.Euler());
+            .Append("\nspeed = ").Append(playerSpeed.ToString()).Append("m/s");
     }
 }   
